@@ -33,10 +33,10 @@ case $option in
     if [ "${state[$option]}" == "STOPPED" ]
     then
       oci compute instance action --action start --instance-id "${id[$option]}" >/dev/null
-  		printf "\n> STARTING "${name[$option]}"\n"
+      printf "\n> STARTING "${name[$option]}"\n"
     else
       oci compute instance action --action stop --instance-id "${id[$option]}" >/dev/null
-  		printf "\n> STOPPING "${name[$option]}"\n"
+      printf "\n> STOPPING "${name[$option]}"\n"
     fi;;
 	[Qq])
 		printf '> bye\n\n\n'; exit ;;
@@ -52,13 +52,13 @@ case $option in
       do
         if [ "${state[$counter]}" == "RUNNING" ]
         then
-          printf "> Stopping instance "${name[$counter]}""
+          printf "> Stopping instance "${name[$counter]}"\n"
           oci compute instance action --action stop --instance-id "${id[$counter]}" >/dev/null
         fi
         ((counter++))
       done
     fi
-		printf 'Stopping request was sent to all of the running instances. \n\n\n';;
+    printf 'Stopping request was sent to all of the running instances. \n\n\n';;
   *)
     printf '> invalid option\n\n\n';;
 esac
