@@ -12,8 +12,8 @@
 - OCI CLI installed and configured for your OCI account
 - Bash shell
 
-**New feature to be considered**
-- Add support for multiple regions
+**New features to be considered**
+- Add support for multiple regions (which will take longer to run but...)
 - Non-interactive options to, for example, start a VM
 
 **Setup instructions**
