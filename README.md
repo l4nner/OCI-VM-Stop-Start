@@ -1,4 +1,4 @@
-# OCI-VM-Stop-Start
+# OCI-VM-quick
 
 - Quick and easy way to start/stop OCI VMs
 - All you need is to run the command and enter the number of the VM, from a list.
