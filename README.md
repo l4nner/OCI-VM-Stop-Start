@@ -1,6 +1,6 @@
 # OCI-VM-Stop-Start
 
-[VIDEO - 2 minute installation and usage](https://youtu.be/KrX6uj5cXVw)
+[VIDEO - installation and usage in 1.5 min](https://youtu.be/KrX6uj5cXVw)
 
 - Quick and easy way to start/stop OCI VMs
 - All you need is to run the command and enter the number of the VM, from a list.
