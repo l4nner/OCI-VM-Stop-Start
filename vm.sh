@@ -30,23 +30,6 @@ declare -a parameters             #array for command line parameters
 
 #### Functions
 
-# good distraction
-function _spinningthing() {
-  declare -i counter=0
-  declare interval=$1
-  while true
-  do
-    (( counter = counter + 1 ))
-    case $counter in
-      1) printf "%s\b" "-";  sleep $interval ;;
-      2) printf "%s\b" "/";  sleep $interval ;;
-      3) printf "%s\b" "-";  sleep $interval ;;
-      4) printf "%s\b" "\\"; sleep $interval ;;
-      5) counter=0 ;;
-    esac
-  done
-}
-
 # Data gathering
 function _datagathering() {
   # Send query to OCI
@@ -62,12 +45,12 @@ function _datagathering() {
   do
       auxState=$(cat -s $jsonfile | jq '[.data['$index']."lifecycle-state"]' | grep \" | sed 's/[\ ,\,,\"]//g')
       if [ "$auxState" == "STOPPED" ] || [ "$auxState" == "RUNNING" ];
-  		then
+      then
         state[$index]=$auxState
         vmNumber[$index]=$index
         id[$index]=`cat -s $jsonfile | jq '[.data['$index'].id]' | grep "ocid1.instance.oc1" | sed 's/[\ ,\,,\"]//g'`
         name[$index]=`cat -s $jsonfile | jq '[.data['$index']."display-name"]' | grep \" | sed 's/[\ ,\,,\"]//g'`
-  			[ "$auxState" == "RUNNING" ] && [ $runningInstances == "false" ] && runningInstances="true"
+  	[ "$auxState" == "RUNNING" ] && [ $runningInstances == "false" ] && runningInstances="true"
       fi
   done
   arrayMembers=${#state[*]}
@@ -100,6 +83,23 @@ _searchArray () {
 # line on the screen
 function _line() {
   echo "------------------------------------------";
+}
+
+# good distraction
+function _spinningthing() {
+  declare -i counter=0
+  declare interval=$1
+  while true
+  do
+    (( counter = counter + 1 ))
+    case $counter in
+      1) printf "%s\b" "-";  sleep $interval ;;
+      2) printf "%s\b" "/";  sleep $interval ;;
+      3) printf "%s\b" "-";  sleep $interval ;;
+      4) printf "%s\b" "\\"; sleep $interval ;;
+      5) counter=0 ;;
+    esac
+  done
 }
 
 #### Main
@@ -156,39 +156,39 @@ fi
 #### Actual execution
 case $option in
   [1-$arrayMembers])
-		# one of the listed VMs was picked
-		# if it is running, stop it. If it's stopped, start it.
+    # one of the listed VMs was picked
+    # if it is running, stop it. If it's stopped, start it.
     _changeVmStatus $option;;
   [Ss])
-		# Stopping all running VMs (if there is any to stop)
-		if [ $runningInstances == "true" ]
-		then
-    		printf "\nStop all running instances?(y/n) "
-    		read -n 1 option
-        printf "\n"
-        if [ "$option" == "Y" ] || [ "$option" == "y" ]
-        then
-      		index=0
-      		while [ $index -le $totalInsts ]
-      		do
-        		if [ "${state[$index]}" == "RUNNING" ]
-        		then
-          		_changeVmStatus $index
-        		fi
-        		((index++))
-      		done
-        else
-          printf "  > Nothing done\n"
-    		fi
-		else
-				printf "  > You have no running instances to stop. That was easy.\n"
-		fi;;
+    # Stopping all running VMs (if there is any to stop)
+    if [ $runningInstances == "true" ]
+    then
+      printf "\nStop all running instances?(y/n) "
+      read -n 1 option
+      printf "\n"
+      if [ "$option" == "Y" ] || [ "$option" == "y" ]
+      then
+        index=0
+      	while [ $index -le $totalInsts ]
+      	do
+          if [ "${state[$index]}" == "RUNNING" ]
+          then
+            _changeVmStatus $index
+          fi
+          ((index++))
+      	done
+      else
+        printf "  > Nothing done\n"
+      fi
+      else
+	printf "  > You have no running instances to stop. That was easy.\n"
+    fi;;
   [Qq])
-  	# calling it quits
+    # calling it quits
     # No different from entering an invalid option.
     printf "\n> Quitting.";;
   *)
-		# just abandon
+    # just abandon
 esac
 printf "\n"
 rm -f $jsonfile
