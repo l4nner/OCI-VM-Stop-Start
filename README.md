@@ -9,12 +9,12 @@
 - There is also an option to stopped all of the VMs at the same time. Something you might want to run at the end of your day, for example.
 
 **Requirements**
-- OCI CLI installed and configured for your OCI account
 - Bash shell
+- OCI CLI installed and configured for your OCI account
+- jq package. Usually installed.
 
 **New features to be considered**
-- Add support for multiple regions (which will take longer to run but...)
-- Non-interactive options to, for example, start a VM
+- Support for multiple regions (which will take longer to run but...)
 
 **Setup instructions**
 - Steps for OCI command line insterface are available here:
