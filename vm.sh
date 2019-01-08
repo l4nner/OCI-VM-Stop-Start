@@ -3,7 +3,7 @@
 # set -x
 
 # Enter your compartment ID here:
-compartment='ocid1.compartment.oc1..aaaaaaaa32o4bzgvqgjb5xvz4brhf4gxutq7yyl2epw6jwd5ty2s2izbyqva'
+compartment='ocid1.compartment.oc1..aaaaaaaa...s2izbyqva'
 
 # Checking requirements
 command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not available. Please install. "; exit 1; }
