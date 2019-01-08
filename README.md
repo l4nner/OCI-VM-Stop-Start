@@ -1,4 +1,4 @@
-# OCI-VM-quick
+# OCI-VM-Stop-Start
 
 [VIDEO - 2 minute installation and usage](https://youtu.be/KrX6uj5cXVw)
 
