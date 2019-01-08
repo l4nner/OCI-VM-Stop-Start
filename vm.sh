@@ -135,6 +135,7 @@ if [ "$#" != "0" ]; then
     fi
   done
 else
+
 #### Interactive mode menu
   _datagathering
   clear
