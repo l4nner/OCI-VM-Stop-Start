@@ -14,6 +14,7 @@
 - Bash shell
 - OCI CLI installed and configured for your OCI account
 - jq package. Usually installed.
+- git client (Optional, you might as well just download the script)
 
 **New features to be considered**
 - Support for multiple regions (which will take longer to run but...)
