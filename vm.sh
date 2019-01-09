@@ -7,6 +7,7 @@ compartment=''
 
 # Checking requirements
 command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not available. Please install. "; exit 1; }
+[ -z $compartment ] && { printf '\nEdit the script, adding your compartment id\n'; exit 1; }
 
 #### Variables
 
