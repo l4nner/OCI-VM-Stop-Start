@@ -43,7 +43,7 @@ function _datagathering() {
 
   # Populate array with VMs in states "of interest". Running or Stopped
   totalInsts=`cat -s $jsonfile | jq '[.data[].id]' | grep instance | wc -l`
-  for index in `seq 1 $totalInsts`
+  for index in `seq 0 $totalInsts`
   do
       auxState=$(cat -s $jsonfile | jq '[.data['$index']."lifecycle-state"]' | grep \" | sed 's/[\ ,\,,\"]//g')
       if [ "$auxState" == "STOPPED" ] || [ "$auxState" == "RUNNING" ];
