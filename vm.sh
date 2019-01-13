@@ -15,6 +15,7 @@ command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not available. Please install
 declare jsonfile="./listinstances.json";  #temp json store
 :> $jsonfile
 declare -i index                  #loops index
+declare -i aIndex=1               #array index
 declare -i totalInsts             #total number of running or stopped instances
 declare -i arrayMembers           #number of array members
 declare -i numberOfParameters     #number of passed parameters
@@ -47,11 +48,12 @@ function _datagathering() {
       auxState=$(cat -s $jsonfile | jq '[.data['$index']."lifecycle-state"]' | grep \" | sed 's/[\ ,\,,\"]//g')
       if [ "$auxState" == "STOPPED" ] || [ "$auxState" == "RUNNING" ];
       then
-        state[$index]=$auxState
-        vmNumber[$index]=$index
-        id[$index]=`cat -s $jsonfile | jq '[.data['$index'].id]' | grep "ocid1.instance.oc1" | sed 's/[\ ,\,,\"]//g'`
-        name[$index]=`cat -s $jsonfile | jq '[.data['$index']."display-name"]' | grep \" | sed 's/[\ ,\,,\"]//g'`
+        state[$aIndex]=$auxState
+        vmNumber[$aIndex]=$aIndex
+        id[$aIndex]=`cat -s $jsonfile | jq '[.data['$index'].id]' | grep "ocid1.instance.oc1" | sed 's/[\ ,\,,\"]//g'`
+        name[$aIndex]=`cat -s $jsonfile | jq '[.data['$index']."display-name"]' | grep \" | sed 's/[\ ,\,,\"]//g'`
   	[ "$auxState" == "RUNNING" ] && [ $runningInstances == "false" ] && runningInstances="true"
+	((aIndex++))
       fi
   done
   arrayMembers=${#state[*]}
