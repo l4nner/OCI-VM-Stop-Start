@@ -12,8 +12,7 @@ command -v jq >/dev/null 2>&1 || { echo >&2 "jq is not available. Please install
 #### Variables
 
 # Just to document. Not needed.
-declare jsonfile="./listinstances.json";  #temp json store
-:> $jsonfile
+declare jsonfile=~/listinstances.json  #temp json store
 declare -i index                  #loops index
 declare -i aIndex=1               #array index
 declare -i totalInsts             #total number of running or stopped instances
@@ -30,6 +29,7 @@ declare -a name                   #array for instances' names
 declare -a state                  #array for instances' states
 declare -a parameters             #array for command line parameters
 
+
 #### Functions
 
 # Data gathering
@@ -38,6 +38,7 @@ function _datagathering() {
   printf "> Capturing VM instances information "
   _spinningthing 0.25 &
   bgpid=$!
+  install -m 755 /dev/null $jsonfile
   oci compute instance list --sort-by TIMECREATED --compartment-id $compartment --all --sort-order ASC > $jsonfile
   compartmentName=`oci iam compartment get --compartment-id $compartment | jq -r '.data.name'`
 
